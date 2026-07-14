@@ -17,7 +17,7 @@ app.use('/api/books', booksRouter);
 
 const PORT = process.env.PORT || 5000;
 
-// הפעלת השרת מיד כדי ש-Render יזהה את הפורט פתוח
+// הפעלת השרת מיד
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
 
@@ -29,4 +29,3 @@ app.listen(PORT, async () => {
     console.error('Failed to connect to database:', err);
   }
 });
-startServer();
