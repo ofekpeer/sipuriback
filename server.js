@@ -17,18 +17,16 @@ app.use('/api/books', booksRouter);
 
 const PORT = process.env.PORT || 5000;
 
-async function startServer() {
+// הפעלת השרת מיד כדי ש-Render יזהה את הפורט פתוח
+app.listen(PORT, async () => {
+  console.log(`Server running on port ${PORT}`);
+
+  // ניסיון חיבור למסד הנתונים ברקע
   try {
     await connectDatabase();
-
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-    });
+    console.log('Database connected successfully');
   } catch (err) {
-    console.error('Failed to start server');
-
-    console.error(err);
+    console.error('Failed to connect to database:', err);
   }
-}
-
+});
 startServer();
