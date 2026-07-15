@@ -4,34 +4,44 @@ const BookSchema = new mongoose.Schema(
   {
     createdAt: {
       type: Date,
-
       default: Date.now,
+    },
+
+    status: {
+      type: String,
+      enum: ['generating', 'completed', 'failed'],
+      default: 'generating',
     },
 
     child: {
       name: String,
-
       age: Number,
-
       gender: String,
+    },
+    originalImage: {
+      type: String,
+      default: null,
     },
 
     character: {
       type: Object,
-
       required: true,
     },
 
     title: {
       type: String,
-
       required: true,
     },
 
     cover: {
-      type: Object,
+      title: String,
 
-      required: true,
+      imagePrompt: String,
+
+      imageUrl: {
+        type: String,
+        default: '',
+      },
     },
 
     pages: [
@@ -41,6 +51,11 @@ const BookSchema = new mongoose.Schema(
         text: String,
 
         imagePrompt: String,
+
+        imageUrl: {
+          type: String,
+          default: '',
+        },
       },
     ],
 
@@ -48,7 +63,6 @@ const BookSchema = new mongoose.Schema(
 
     moral: String,
   },
-
   {
     versionKey: false,
   },

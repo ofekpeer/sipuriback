@@ -1,35 +1,17 @@
-import { buildStoryPrompt } from "../prompts/storyPrompt.js";
-import { chat } from "./openAIService.js";
-import { parseJSON } from "../utils/parseJSON.js";
+import { buildStoryPrompt } from '../prompts/storyPrompt.js';
+import { chat } from './openAIService.js';
+import { parseJSON } from '../utils/parseJSON.js';
 
-export async function generateStory(
+export async function generateStory(bookData, character) {
+  const prompt = buildStoryPrompt(bookData, character);
 
-    bookData,
+  const response = await chat([
+    {
+      role: 'user',
 
-    character
+      content: prompt,
+    },
+  ]);
 
-) {
-
-    const prompt = buildStoryPrompt(
-
-        bookData,
-
-        character
-
-    );
-
-    const response = await chat([
-
-        {
-
-            role: "user",
-
-            content: prompt,
-
-        },
-
-    ]);
-
-    return parseJSON(response);
-
+  return parseJSON(response);
 }

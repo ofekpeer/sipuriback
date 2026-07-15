@@ -1,45 +1,57 @@
-export function buildCharacter(bookData) {
+export function buildCharacter(bookData, imageAnalysis = null) {
+  const { child, design } = bookData;
 
-    const { child, design } = bookData;
+  return {
+    name: child.name,
 
-    return {
+    age: child.age,
 
-        name: child.name,
+    gender: child.gender,
 
-        age: child.age,
+    illustrationStyle: design.illustrationStyle,
 
-        gender: child.gender,
+    appearance: imageAnalysis || {
+      hair: {
+        color: '',
+        style: '',
+      },
 
-        illustrationStyle: design.illustrationStyle,
+      eyes: {
+        color: '',
+        shape: '',
+      },
 
-        appearance: {
+      skin: {
+        tone: '',
+      },
 
-            hair: "",
+      face: {
+        shape: '',
+      },
 
-            eyes: "",
+      eyebrows: '',
 
-            skin: "",
+      nose: '',
 
-            clothes: "",
+      mouth: '',
 
-            shoes: "",
+      shirt: '',
 
-            accessories: []
+      pants: '',
 
-        },
+      shoes: '',
 
-        personality: {
+      accessories: [],
+    },
 
-            brave: true,
+    personality: {
+      brave: true,
 
-            curious: true,
+      curious: true,
 
-            kind: true,
+      kind: true,
 
-            funny: false
-
-        }
-
-    };
-
+      funny: false,
+    },
+  };
 }

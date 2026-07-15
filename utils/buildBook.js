@@ -18,6 +18,9 @@ export function buildBook(bookData, character, story) {
 
         },
 
+        // ⭐ נשמור את התמונה המקורית
+        originalImage: bookData.child.image || null,
+
         character,
 
         title: story.title,

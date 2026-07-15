@@ -8,7 +8,7 @@ import planningInstructions from './planningInstructions.js';
 import characterProfile from './characterProfile.js';
 import writingStyle from './writingStyle.js';
 import { storyTypes, illustrationStyles } from '../constants/bookOptions.js';
-export function buildStoryPrompt(bookData) {
+export function buildStoryPrompt(bookData, character) {
   const {
     child,
 
@@ -153,7 +153,7 @@ ${planningInstructions}
 
 CHARACTER PROFILE
 
-${characterProfile(bookData)}
+${characterProfile(character)}
 
 ==================================================
 

@@ -1,57 +1,90 @@
-export default function buildCharacterProfile(bookData) {
-
-const { child, design } = bookData;
-
-return `
+export default function buildCharacterProfile(character) {
+  return `
 
 MAIN CHARACTER
 
 This character must remain visually identical throughout the entire book.
 
-==========================
+==================================================
 
 Name:
-${child.name}
+${character.name}
 
 Age:
-${child.age}
+${character.age}
 
 Gender:
-${child.gender}
+${character.gender}
 
 Illustration Style:
-${design.illustrationStyle}
+${character.illustrationStyle}
 
-==========================
+==================================================
 
-CHARACTER RULES
+VISUAL APPEARANCE
 
-The child is the main hero.
+Hair Color:
+${character.appearance.hair?.color || ''}
 
-The child appears on every page.
+Hair Style:
+${character.appearance.hair?.style || ''}
 
-Never replace the child as the main character.
+Eye Color:
+${character.appearance.eyes?.color || ''}
 
-The child's appearance must remain identical throughout the story.
+Eye Shape:
+${character.appearance.eyes?.shape || ''}
 
-The child's hairstyle never changes.
+Skin Tone:
+${character.appearance.skin?.tone || ''}
 
-The child's hair color never changes.
+Face Shape:
+${character.appearance.face?.shape || ''}
 
-The child's eye color never changes.
+Eyebrows:
+${character.appearance.eyebrows || ''}
 
-The child's skin tone never changes.
+Nose:
+${character.appearance.nose || ''}
 
-The child's clothes remain consistent unless the story explicitly changes them.
+Mouth:
+${character.appearance.mouth || ''}
 
-The child's shoes remain consistent.
+Shirt:
+${character.appearance.shirt || ''}
 
-The child's personality remains consistent.
+Pants:
+${character.appearance.pants || ''}
 
-The child becomes slightly more confident as the adventure progresses.
+Shoes:
+${character.appearance.shoes || ''}
 
-Every imagePrompt must describe exactly the same child.
+Accessories:
+${character.appearance.accessories?.join(', ') || 'None'}
+
+==================================================
+
+VERY IMPORTANT
+
+The child must look EXACTLY the same on:
+
+- Cover
+- Page 1
+- Page 2
+- ...
+- Page 10
+
+Never invent a new hairstyle.
+
+Never change facial features.
+
+Never change eye color.
+
+Never change skin tone.
+
+Never change clothes unless the story explicitly requires it.
+
+Every imagePrompt must describe exactly this child.
 
 `;
-
 }
