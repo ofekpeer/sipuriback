@@ -2,6 +2,7 @@ import path from 'path';
 import Book from '../models/Book.js';
 import { createImage } from './imageService.js';
 import { buildImagePrompt } from '../prompts/imagePrompt.js';
+import { storeImageAsset } from './assetStorageService.js';
 
 export async function generateCover(
   book,
@@ -28,8 +29,14 @@ export async function generateCover(
     referenceImage: referenceImages,
   });
 
+  const imageUrl = await storeImageAsset({
+    bookId: book._id,
+    assetKey: 'cover.jpg',
+    filePath: outputPath,
+  });
+
   await Book.findByIdAndUpdate(book._id, {
-    'cover.imageUrl': `/uploads/books/${book._id}/cover.jpg`,
+    'cover.imageUrl': imageUrl,
   });
 
   console.log('✅ Cover created');
@@ -76,6 +83,12 @@ export async function generatePages(
           referenceImage: referenceImages,
         });
 
+        const imageUrl = await storeImageAsset({
+          bookId: book._id,
+          assetKey: `page-${page.page}.jpg`,
+          filePath: outputPath,
+        });
+
         await Book.updateOne(
           {
             _id: book._id,
@@ -83,7 +96,7 @@ export async function generatePages(
           },
           {
             $set: {
-              'pages.$.imageUrl': `/uploads/books/${book._id}/page-${page.page}.jpg`,
+              'pages.$.imageUrl': imageUrl,
               'pages.$.isPlaceholder': false,
             },
             $inc: {
@@ -98,7 +111,7 @@ export async function generatePages(
   }
 
   if (mockImages) {
-    const placeholder = '/uploads/defaults/sipuri-placeholder.png';
+    const placeholder = '/uploads/defaults/page-placeholder.png';
 
     await Promise.all(
       pages.slice(maxAIImages).map(async (page) => {

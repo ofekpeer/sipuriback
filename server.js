@@ -6,6 +6,7 @@ import { connectDatabase } from './config/database.js';
 import booksRouter from './routes/books.js';
 import authRouter from './routes/auth.js';
 import usersRouter from './routes/users.js';
+import assetsRouter from './routes/assets.js';
 import { resumePendingBookGenerations } from './services/bookService.js';
 
 dotenv.config();
@@ -17,7 +18,12 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/uploads', express.static(path.resolve('uploads')));
+app.get(/^\/uploads\/books\/.+/, (req, res) => {
+  res.set('Cache-Control', 'no-store');
+  res.sendFile(path.resolve('uploads', 'defaults', 'page-placeholder.png'));
+});
 
+app.use('/api/assets', assetsRouter);
 app.use('/api/books', booksRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);

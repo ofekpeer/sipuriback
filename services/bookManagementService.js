@@ -4,6 +4,11 @@ import path from 'path';
 import Book from '../models/Book.js';
 import User from '../models/User.js';
 import { cancelBookGeneration } from './bookService.js';
+import {
+  deleteBookImageAssets,
+  deleteImageAssetByUrl,
+  storeImageAsset,
+} from './assetStorageService.js';
 
 const UPLOADS_ROOT = path.resolve('uploads');
 const BOOKS_ROOT = path.join(UPLOADS_ROOT, 'books');
@@ -81,6 +86,8 @@ function resolveBookDirectory(bookId) {
 }
 
 async function removeAssetIfInsideBook(assetUrl, bookId) {
+  await deleteImageAssetByUrl(assetUrl, bookId);
+
   const assetPath = resolveSafeAssetPath(assetUrl);
   if (!assetPath) return;
 
@@ -200,9 +207,14 @@ export async function replaceOwnedBookImage(
     const fileName = `${fileBaseName}-custom-${Date.now()}${extension}`;
     const bookDirectory = resolveBookDirectory(bookId);
     const destination = path.join(bookDirectory, 'custom', fileName);
-    const imageUrl = `/uploads/books/${bookId}/custom/${fileName}`;
 
     await moveUploadedFile(file.path, destination);
+    const imageUrl = await storeImageAsset({
+      bookId,
+      assetKey: fileName,
+      filePath: destination,
+      contentType: file.mimetype,
+    });
 
     if (kind === 'cover') {
       book.cover.imageUrl = imageUrl;
@@ -215,6 +227,7 @@ export async function replaceOwnedBookImage(
     try {
       await book.save();
     } catch (error) {
+      await deleteImageAssetByUrl(imageUrl, bookId).catch(() => {});
       await fs.rm(destination, { force: true }).catch(() => {});
       throw error;
     }
@@ -267,6 +280,7 @@ export async function deleteBookFromLibrary(bookId, userId) {
     { purchasedBooks: bookId },
     { $pull: { purchasedBooks: bookId } },
   );
+  await deleteBookImageAssets(bookId);
 
   const bookDirectory = resolveBookDirectory(bookId);
   await fs.rm(bookDirectory, { recursive: true, force: true });
