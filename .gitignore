@@ -1,3 +1,9 @@
-".env" 
-.env 
-.env 
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+
+# Runtime-generated and user-uploaded assets
+uploads/books/
+uploads/originals/

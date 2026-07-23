@@ -67,6 +67,10 @@ IMAGE CONSISTENCY
 
 Every illustration must describe exactly the same child.
 
+${bookData.child.image ? 'A reference photo is provided. The photo controls identity only, never rendering style. Every imagePrompt must refer to the same recognizable person without copying photographic skin, lighting, or camera realism.' : ''}
+
+The selected illustration style must transform the entire child: face, skin, hair, eyes, clothing, hands, and body. The child must look clearly illustrated rather than photorealistic, while remaining recognizable.
+
 Keep the following identical across the entire book:
 
 • Hair color
@@ -84,6 +88,8 @@ Keep the following identical across the entire book:
 • Accessories
 
 Never change the child's appearance unless the story explicitly explains why.
+
+Never ask for enlarged eyes, an oversized head, exaggerated teeth, a caricature, or distorted facial proportions. Require a recognizable likeness, natural human anatomy, and a gentle non-frightening expression.
 
 ==================================================
 
@@ -108,6 +114,14 @@ Every imagePrompt must:
 Each imagePrompt must be completely self contained.
 
 Never refer to previous pages.
+
+Repeat the selected illustration medium in every imagePrompt. Never mix 2D animation, stylized 3D animation, watercolor, comic ink, or photorealism. The selected medium must be clearly visible on the child's face, not only in the background.
+
+Use an eye-level centered hero shot framed from the waist or mid-thigh up. Keep the person in the lower-middle center at roughly half the frame height, with a clearly recognizable face and a rich cinematic adventure world visible around and above them. Use layered scenery, luminous atmosphere, environmental storytelling, and strong depth. Avoid tiny characters, extreme wide angles, overhead views, empty backgrounds, and full-body framing unless absolutely required by the action.
+
+Never request or describe text, titles, letters, numbers, signs, logos, captions, speech bubbles, posters, labels, or any typography in an illustration. The application adds all written content separately.
+
+The cover imagePrompt must describe title-free full-bleed artwork, never a book-cover layout or lettering.
 
 ==================================================
 

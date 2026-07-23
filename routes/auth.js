@@ -1,0 +1,10 @@
+import express from 'express';
+import { completeGoogleLogin, login, me, register, startGoogleLogin } from '../controllers/authController.js';
+import { requireAuth } from '../middleware/auth.js';
+const router = express.Router();
+router.post('/register', register);
+router.post('/login', login);
+router.get('/google', startGoogleLogin);
+router.get('/google/callback', completeGoogleLogin);
+router.get('/me', requireAuth, me);
+export default router;

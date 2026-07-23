@@ -10,6 +10,8 @@ export function buildCharacter(bookData, imageAnalysis = null) {
 
     illustrationStyle: design.illustrationStyle,
 
+    visualReferenceProvided: Boolean(child.image),
+
     appearance: imageAnalysis || {
       hair: {
         color: '',
@@ -28,6 +30,18 @@ export function buildCharacter(bookData, imageAnalysis = null) {
       face: {
         shape: '',
       },
+
+      apparentAge: '',
+
+      facialHair: '',
+
+      jawline: '',
+
+      bodyBuild: '',
+
+      facialProportions: '',
+
+      distinctiveFeatures: [],
 
       eyebrows: '',
 

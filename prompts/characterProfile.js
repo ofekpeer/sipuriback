@@ -11,7 +11,7 @@ Name:
 ${character.name}
 
 Age:
-${character.age}
+${character.visualReferenceProvided ? 'Use the apparent age in the reference photo for every illustration' : character.age}
 
 Gender:
 ${character.gender}
@@ -41,6 +41,24 @@ ${character.appearance.skin?.tone || ''}
 Face Shape:
 ${character.appearance.face?.shape || ''}
 
+Apparent Age:
+${character.appearance.apparentAge || ''}
+
+Facial Hair:
+${character.appearance.facialHair || ''}
+
+Jawline:
+${character.appearance.jawline || ''}
+
+Body Build:
+${character.appearance.bodyBuild || ''}
+
+Facial Proportions:
+${character.appearance.facialProportions || ''}
+
+Distinctive Features:
+${character.appearance.distinctiveFeatures?.join(', ') || ''}
+
 Eyebrows:
 ${character.appearance.eyebrows || ''}
 
@@ -65,6 +83,8 @@ ${character.appearance.accessories?.join(', ') || 'None'}
 ==================================================
 
 VERY IMPORTANT
+
+${character.visualReferenceProvided ? 'The uploaded reference photo is the absolute visual ground truth. Never change the person’s apparent age, facial hair, facial geometry, or distinctive identity to match the narrative age.' : ''}
 
 The child must look EXACTLY the same on:
 
